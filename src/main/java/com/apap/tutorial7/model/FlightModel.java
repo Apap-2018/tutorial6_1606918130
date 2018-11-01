@@ -1,4 +1,4 @@
-package com.apap.tutorial6.model;
+package com.apap.tutorial7.model;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -15,10 +15,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -50,7 +51,7 @@ public class FlightModel implements Serializable {
     @Column(name = "time", nullable = false)
     private Date time;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "pilot_licenseNumber", referencedColumnName = "license_number")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -89,6 +90,7 @@ public class FlightModel implements Serializable {
     /**
      * @param pilot the pilot to set
      */
+    @JsonProperty("pilot")
     public void setPilot(PilotModel pilot) {
         this.pilot = pilot;
     }

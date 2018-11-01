@@ -1,9 +1,9 @@
-package com.apap.tutorial6.service;
+package com.apap.tutorial7.service;
 
 import java.util.Optional;
 
-import com.apap.tutorial6.model.PilotModel;
-import com.apap.tutorial6.repository.PilotDb;
+import com.apap.tutorial7.model.PilotModel;
+import com.apap.tutorial7.repository.PilotDb;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class PilotServiceImpl implements PilotService {
     private PilotDb pilotDb;
 
     @Override
-    public Optional<PilotModel> getPilotDetailByLicenseNumber(String licenseNumber) {
-        return pilotDb.findByLicenseNumber(licenseNumber);
+    public PilotModel getPilotDetailByLicenseNumber(String licenseNumber) {
+        return pilotDb.findByLicenseNumber(licenseNumber).get();
     }
 
     @Override
@@ -34,7 +34,13 @@ public class PilotServiceImpl implements PilotService {
     }
 
     @Override
-    public Optional<PilotModel> getPilotDetailById(long id) {
-        return pilotDb.findById(id);
+    public PilotModel getPilotDetailById(long id) {
+        return pilotDb.findById(id).get();
     }
+
+	@Override
+	public void deletePilot(PilotModel pilot) {
+		pilotDb.delete(pilot);
+		
+	}
 }
